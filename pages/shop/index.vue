@@ -1,5 +1,5 @@
 <template>
   <div>
-    Day la trang Index
+    Day la trang index cua shop
   </div>
 </template>
