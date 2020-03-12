@@ -1,120 +1,55 @@
 <template>
-  <v-container fluid>
-    <v-row justify="center">
-      <v-subheader>Today</v-subheader>
-
-      <v-expansion-panels popout>
-        <v-expansion-panel
-          v-for="(message, i) in messages"
-          :key="i"
-          hide-actions
-        >
-          <v-expansion-panel-header>
-            <v-row
-              align="center"
-              class="spacer"
-              no-gutters
-            >
-              <v-col
-                cols="4"
-                sm="2"
-                md="1"
-              >
-                <v-avatar
-                  size="36px"
-                >
-                  <img
-                    v-if="message.avatar"
-                    alt="Avatar"
-                    src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-                  >
-                  <v-icon
-                    v-else
-                    :color="message.color"
-                    v-text="message.icon"
-                  ></v-icon>
-                </v-avatar>
-              </v-col>
-
-              <v-col
-                class="hidden-xs-only"
-                sm="5"
-                md="3"
-              >
-                <strong v-html="message.name"></strong>
-                <span
-                  v-if="message.total"
-                  class="grey--text"
-                >
-                  &nbsp;({{ message.total }})
-                </span>
-              </v-col>
-
-              <v-col
-                class="text-no-wrap"
-                cols="5"
-                sm="3"
-              >
-                <v-chip
-                  v-if="message.new"
-                  :color="`${message.color} lighten-4`"
-                  class="ml-0 mr-2 black--text"
-                  label
-                  small
-                >
-                  {{ message.new }} new
-                </v-chip>
-                <strong v-html="message.title"></strong>
-              </v-col>
-
-              <v-col
-                v-if="message.excerpt"
-                class="grey--text text-truncate hidden-sm-and-down"
-              >
-                &mdash;
-                {{ message.excerpt }}
-              </v-col>
-            </v-row>
-          </v-expansion-panel-header>
-
-          <v-expansion-panel-content>
-            <v-divider></v-divider>
-            <v-card-text v-text="lorem"></v-card-text>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </v-row>
-  </v-container>
+  <div>
+    <v-col md="8" offset-md="2">
+      <div>
+        <v-avatar class="mb-5">
+          <img
+            src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-9/s960x960/57101597_2355240434757259_6901541664716750848_o.jpg?_nc_cat=110&amp;_nc_sid=85a577&amp;_nc_oc=AQmDe8xSN2nMHGqhccAMVfekuicT9Std4MmT4lQ5aeSILoYoPJwLAUbQegme0APolgA&amp;_nc_ht=scontent.fhan2-4.fna&amp;_nc_tp=7&amp;oh=71c64482534f471a4de599f16849f1fc&amp;oe=5E902CCD"
+            alt="Hùng Chu"
+          />
+        </v-avatar>
+        <b>Hùng Chu</b>
+      </div>
+      <v-textarea
+        v-model="post"
+        label="Tạo bài viết"
+        outlined
+        dense
+        height="150px"
+        :error-messages="Errospost"
+      >   
+      </v-textarea>
+      <div> 
+      <v-btn class="ma-2" color="indigo" dark>
+        <v-icon dark>mdi-cloud-upload</v-icon>
+      </v-btn>
+      </div>
+      <div class="text-center">
+        <v-btn class="ma-2" color="gray darken-2" dark to="/post">
+          <v-icon dark left>mdi-arrow-left</v-icon>Back
+        </v-btn>
+        <v-btn rounded color="primary" dark @click="Post">Đăng</v-btn>
+      </div>
+    </v-col>
+  </div>
 </template>
 <script>
-  export default {
-    data: () => ({
-      messages: [
-        {
-          avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-          name: 'John Leider',
-          title: 'Welcome to Vuetify.js!',
-          excerpt: 'Thank you for joining our community...',
-        },
-        {
-          color: 'red',
-          icon: 'people',
-          name: 'Social',
-          new: 1,
-          total: 3,
-          title: 'Twitter',
-        },
-        {
-          color: 'teal',
-          icon: 'local_offer',
-          name: 'Promos',
-          new: 2,
-          total: 4,
-          title: 'Shop your way',
-          exceprt: 'New deals available, Join Today',
-        },
-      ],
-      lorem: 'Lorem ipsum dolor sit amet, at aliquam vivendum vel, everti delicatissimi cu eos. Dico iuvaret debitis mel an, et cum zril menandri. Eum in consul legimus accusam. Ea dico abhorreant duo, quo illum minimum incorrupte no, nostro voluptaria sea eu. Suas eligendi ius at, at nemore equidem est. Sed in error hendrerit, in consul constituam cum.',
-    }),
+export default {
+  name: "CreatePost",
+  data() {
+    return {
+      post: "",
+      Errospost: ""
+    };
+  },
+  methods: {
+    Post() {
+      if (!this.post) {
+        this.Errospost = "Hãy nhập nội dung bài viết";
+      } else {
+        (Errospost = "false"), (this.Errospost = "");
+      }
+    }
   }
+};
 </script>
