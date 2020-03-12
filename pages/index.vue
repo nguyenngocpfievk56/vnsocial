@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
   tao moi hoan toan
   </div>
   </template>
@@ -11,3 +12,8 @@ export default {
 <style >
   
 </style>
+=======
+    Day la trang Index
+  </div>
+</template>
+>>>>>>> 8b5dbbc3d7dece239140396508e835365fd2df1b

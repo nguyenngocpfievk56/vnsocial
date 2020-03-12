@@ -1,12 +1,12 @@
 <template>
-    <div>
-        day la trang post cua admin
-    </div>
+  <div>
+    Day la index cua post cua admin
+  </div>
 </template>
+
 <script>
 export default {
-    name: 'PostAdmin',
-    layout: 'admin',
-
+  name: "AdminPostIndexPage",
+  layout: "admin",
 }
 </script>
