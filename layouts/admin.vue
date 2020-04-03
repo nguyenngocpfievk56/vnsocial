@@ -32,15 +32,15 @@
               </v-list-item-content>
             </template>
             <v-list-item class="pl-6" v-for="(child, i) in item.children" :key="i" link>
-              <v-list-item-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>{{ child.text }}</v-list-item-title>
-              </v-list-item-content>
+                <v-list-item-action v-if="child.icon">
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title>{{ child.text }}</v-list-item-title>
+                </v-list-item-content>
             </v-list-item>
           </v-list-group>
-          <v-list-item v-else :key="item.text" link>
+          <v-list-item v-else :key="item.text" :to="item.path" link>
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -64,19 +64,34 @@
       <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
-      <v-btn icon large>
-        <v-avatar color="#000" size="32px" item>
-          Sún
-        </v-avatar>
-      </v-btn>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn icon large>
+            <v-avatar color="#000" size="32px" item v-on="on">Sún</v-avatar>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item>
+            <v-list-item-avatar>
+              <img src="" alt="Sún">
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>Nhat Minh</v-list-item-title>
+              <v-list-item-subtitle>Admin</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          
+          <v-list-item>
+            <v-btn color="primary" to="admin/auth/login">Login</v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
-    <v-content>
-      <nuxt/>
+    <v-content class="ma-5">
+      <nuxt />
     </v-content>
-    <v-footer
-      :fixed="fixed"
-      app color="#2d2d2d"
-    >
+    <v-footer :fixed="fixed" app color="#2d2d2d">
       <span>&copy; {{ new Date().getFullYear() }}</span>
       _Sún
     </v-footer>
@@ -94,19 +109,22 @@ export default {
     items: [
       { icon: "mdi-contacts", text: "Quản lý người dùng" },
       { icon: "mdi-content-copy", text: "Danh sách bài viết" },
+      { icon: "mdi-store", text: "Danh sách Shop", path: "/admin/shop/lists" },
       { icon: "mdi-plus", text: "Tạo bài viết" },
       {
         icon: "mdi-chevron-up",
         "icon-alt": "mdi-chevron-down",
         text: "Thêm",
         model: false,
-        children: [
-          { text: "Import" },
-          { text: "Export" },
-          { text: "Print" }
-        ]
+        children: [{ text: "Import" }, { text: "Export" }, { text: "Print" }]
       },
       { icon: "mdi-settings", text: "Cài đặt" }
+    ],
+    itemss: [
+      { title: "Click Me" },
+      { title: "Click Me" },
+      { title: "Click Me" },
+      { title: "Click Me 2" }
     ]
   })
 };
