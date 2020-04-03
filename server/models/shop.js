@@ -16,7 +16,19 @@ var shopSchema = mongoose.Schema({
   country: {
     type: String,
     require: false
-  }
+  },
+  created_at: {
+		type: Date,
+		default: Date.now
+	},
+	updated_at: {
+		type: Date,
+		require: false
+	},
+	deleted_at: {
+		type: Date,
+		require: false
+	}
 });
 
 module.exports = mongoose.model('Shop', shopSchema);
