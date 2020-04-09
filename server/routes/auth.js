@@ -19,10 +19,10 @@ router.get('/login', function (req, res) {
   })
 });
 
-router.get('/create', function (req, res) {
-  var name = "Ngoc";
-  var email = "nguyen.huu.ngoc@elife.co.jp";
-  var password = "123456";
+router.post('/create', function (req, res) {
+  var name = req.body.name
+  var email = req.body.email;
+  var password = req.body.password;
   var img = "https://cdn.vuetifyjs.com/images/john.jpg";
 
   User.findOne({ email, deleted_at: null }, function (err, existUser) {

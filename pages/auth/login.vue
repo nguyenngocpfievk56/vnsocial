@@ -22,7 +22,7 @@
         ></v-text-field>
 
         <v-btn class="mt-2" outlined color="indigo" @click="doLogin">Đăng nhập</v-btn>
-        <v-btn class="mt-2" outlined color="indigo">Đăng ký</v-btn>
+        <v-btn class="mt-2" outlined color="indigo" to="/auth/register">Đăng ký</v-btn>
       </v-card>
     </v-col>
   </v-row>
