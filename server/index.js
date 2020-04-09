@@ -21,6 +21,7 @@ async function start () {
   var port = 3001
 
   app.use('/api/auth', require('./routes/auth'));
+  app.use('/api/qa', require('./routes/qa'));
   app.use('/api/post', require('./routes/post'));
 
   await nuxt.ready()
