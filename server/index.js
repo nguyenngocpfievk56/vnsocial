@@ -20,7 +20,9 @@ async function start () {
   const { host } = nuxt.options.server
   var port = 3001
 
-	app.use('/api/auth', require('./routes/auth'));
+  app.use('/api/auth', require('./routes/auth'));
+  app.use('/api/qa', require('./routes/qa'));
+  app.use('/api/post', require('./routes/post'));
 
   await nuxt.ready()
   // Build only in dev mode
