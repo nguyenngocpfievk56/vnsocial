@@ -50,7 +50,8 @@ export default {
     Post() {
       this.ErrorPost = this.content ? '' : "hãy nhập nội dung bài viết";
       this.ErrorImg = this.img ? '' : "hãy nhập đường dẫn ảnh";
-      return
+      if(this.ErrorPost || this.ErrorImg) return;
+
 
       var params = {
         content: this.content,
