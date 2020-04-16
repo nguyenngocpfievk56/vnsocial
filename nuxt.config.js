@@ -30,7 +30,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/mdi.js'
+    '~/plugins/mdi.js',
+    '~/plugins/croppa.js'
   ],
   /*
   ** Nuxt.js dev-modules
