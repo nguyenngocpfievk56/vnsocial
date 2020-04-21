@@ -30,6 +30,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/mdi.js',
+    '~/plugins/croppa.js'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -41,6 +43,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    "@nuxtjs/vuetify"
   ],
   /*
   ** vuetify module configuration
@@ -49,7 +52,6 @@ module.exports = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,
