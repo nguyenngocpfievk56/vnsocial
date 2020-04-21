@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   name: "LoginPage",
   data() {
@@ -39,7 +41,15 @@ export default {
       passwordError: ''
     }
   },
+  computed: {
+    ...mapState('user', {
+      userInfo: 'info'
+    })
+  },
   methods: {
+    ...mapActions({
+      login: 'user/login'
+    }),
     doLogin() {
       if (!this.email) {
         this.emailError = "Vui lòng nhập email";
@@ -52,7 +62,22 @@ export default {
       } else {
         this.passwordError = '';
       }
+
+      if (!this.emailError && !this.passwordError) {
+        var params = {
+          email: this.email,
+          password: this.password
+        }
+        this.login(params);
+      }
     },
+  },
+  watch: {
+    userInfo(newValue, oldValue) {
+      if (newValue._id) {
+        this.$router.push('/')
+      }
+    }
   },
 }
 </script>
