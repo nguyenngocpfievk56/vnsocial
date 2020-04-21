@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 const Post = require('../models/post');
 
-router.get('/create', function (req, res){
+router.post('/create', function (req, res){
+    console.log(req.body);
     var username = "hùng chu ";
-    var content = "bài tập hôm nay khó quá ";
-    var img = "https://cafebiz.cafebizcdn.vn/thumb_w/600/2020/3/2/reading-books-1583124397307491747436-crop-15831244058461265262311.jpg";
+    var content = req.body.content;
+    var img = req.body.img;
     var createPost = new Post();    
     createPost.username = username;
     createPost.content = content;
