@@ -2,8 +2,10 @@
   <div>
     <!--<v-btn color="primary" to="/auth/login" class="abc">Login</v-btn>-->
     <v-btn color="primary" @click="goTo('auth/login')">Login</v-btn>
-    <h1>Welcome to VNsocial:  {{ userInfo.name }}</h1>
+
     <v-btn color="primary" @click="doLogout">Logout</v-btn>
+    <h1>Welcome to VNsocial:  {{ userInfo.name }}</h1>
+    <v-btn color="primary" @click="goTo('post')">Trang danh sách bài post</v-btn>
   </div>
 </template>
 
@@ -29,6 +31,15 @@
       goTo (url) {
         this.$router.push({ path: url });
       }
+    },
+    beforeMount(){
+
+    },
+    mounted() {
+      this.$cookies.set("test", "Day la test",{
+        path: '/',
+        maxAge: 60 * 60 * 24 * 30
+      })
     },
     watch: {
       userInfo (newValue, oldValue) {
