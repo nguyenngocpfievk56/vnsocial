@@ -17,6 +17,7 @@
 </template>
 
 <script>
+	import { mapState, mapActions } from 'vuex'
   import TextField from '~/components/common/form/TextField';
   import axios from 'axios';
 
@@ -34,7 +35,15 @@
         nameError: '',
       }
     },
+    computed: {
+      ...mapState('user', {
+        userInfo: 'info',
+      }),
+    },
     methods: {
+      ...mapActions({
+        doLogin: 'user/login',
+      }),
       doRegister () {
         // if (!this.email) {
         //   this.emailError = "Hãy nhập email";
@@ -60,7 +69,16 @@
         }
         axios.post('/api/auth/create', params)
           .then((res) => {
-            console.log(res)
+            if (res.data.error) {
+              this.emailError = res.data.error;
+            } else {
+              // Đây là trường hpjw thành công, thực hiện login luôn tại lúc này, và chuyển về trang top
+              var params = {
+                email: this.email,
+                password: this.password
+              }
+              this.doLogin(params);
+            }
           })
           .catch((err) => {
             console.log(err)
@@ -81,6 +99,13 @@
     },
     components: {
       TextField
+    },
+    watch: {
+      userInfo (newValue, oldValue) {
+        if (newValue._id) {
+          this.$router.push('/')
+        }
+      }
     },
   }
 </script>

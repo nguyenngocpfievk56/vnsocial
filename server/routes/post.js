@@ -4,13 +4,15 @@ const Post = require('../models/post');
 
 router.post('/create', function (req, res){
     console.log(req.body);
-    var username = "hùng chu ";
+    var username = req.body.name;
     var content = req.body.content;
+    var email = req.body.email;
     var img = req.body.img;
     var createPost = new Post();    
     createPost.username = username;
     createPost.content = content;
     createPost.img = img;
+    createPost.email = email;
     createPost.save(function(err) {
         if(err){
         res.json({error: "tạo thất bại"});

@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 
-router.get('/login', function (req, res) {
-  var email = "nguyen.huu.ngoc@elife.co.jp";
-  var password = "123456";
+router.post('/login', function (req, res) {
+  var email = req.body.email;
+  var password = req.body.password;
 
   User.findOne({ email: email, password: password }, function (err, user) {
     if (err) {

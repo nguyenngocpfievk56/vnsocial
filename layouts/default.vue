@@ -37,6 +37,20 @@
   </v-app>
 </template>
 
+<script>
+  import { mapState } from 'vuex';
+
+  export default {
+    name: "DefaultLayout",
+    computed: {
+      ...mapState('user', {
+        userInfo: 'info',
+        userIsLoading: 'isLoading'
+      })
+    },
+  }
+</script>
+
 <style>
   .main-container {
     margin-top: 64px;
