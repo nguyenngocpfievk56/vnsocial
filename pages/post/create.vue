@@ -47,6 +47,9 @@ export default {
     TextField
   },
   methods: {
+    ...mapActions({
+        doPost: 'post/ToPost',
+      }),
     Post() {
       this.ErrorPost = this.content ? '' : "hãy nhập nội dung bài viết";
       this.ErrorImg = this.img ? '' : "hãy nhập đường dẫn ảnh";
@@ -71,6 +74,14 @@ export default {
     updateImg(newImg){
       this.img= newImg;
     }
-  }
+  },
+  watch: {
+      toPosts (newValue, oldValue) {
+        if (newValue._id) {
+          alert("đăng bài thành công");
+          this.$router.push('/post')
+        }
+      }
+    },
 };
 </script>

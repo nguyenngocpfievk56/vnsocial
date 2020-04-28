@@ -11,6 +11,7 @@ router.post('/create', function (req, res){
     createPost.username = username;
     createPost.content = content;
     createPost.img = img;
+    createPost.email = email;
     createPost.save(function(err) {
         if(err){
         res.json({error: "tạo thất bại"});
