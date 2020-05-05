@@ -1,6 +1,14 @@
 const SET_POSTS = (state, payload) => {
-	state.posts = Object.assign({}, state.posts, payload.post);
+    payload.posts.map(post => {
+        if (state.posts.filter((ipost) => ipost._id == post._id).length == 0) {
+            state.posts.push(post);
+        }
+    })
+};
+const CLEAR_POSTS = (state) => {
+    state.posts = [];
 };
 export default {
-    SET_POSTS
+    SET_POSTS,
+    CLEAR_POSTS,
 }

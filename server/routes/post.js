@@ -4,21 +4,18 @@ const Post = require('../models/post');
 
 router.post('/create', function (req, res){
     console.log(req.body);
-    var username = req.body.name;
+    var user_id = req.body.user_id;
+    var username = req.body.username;
     var content = req.body.content;
-    var email = req.body.email;
     var img = req.body.img;
     var createPost = new Post();    
+    createPost.user = user_id;
     createPost.username = username;
     createPost.content = content;
     createPost.img = img;
-    createPost.email = email;
-    createPost.save(function(err) {
-        if(err){
-        res.json({error: "tạo thất bại"});
-        return;
-        }
-        res.json({ post: createPost });
+    createPost.save((err) => {
+        if (err) throw err;
+        res.json({ data: createPost });
     })
 });
 router.get('/update', function (req,res){
@@ -45,13 +42,14 @@ router.get('/delete', function(req,res){
     })
 })
 router.get('/find', function(req,res){ 
-    Post.find(function(err, response){
+    Post.find(function(err, posts){
         if(err){
             res.json({error: "Có lỗi"});
             return;
         }
-        res.json({ Post: response})
+        res.json({ data: posts})
     })
+    .populate('user')
 })
 
 module.exports = router;

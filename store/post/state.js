@@ -2,6 +2,5 @@
 // State chỉ được thay đổi giá bằng Mutation
 
 export default () => ({
-  posts: {},
-  isLoading: false,
+  posts: [],
 });

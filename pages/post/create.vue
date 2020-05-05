@@ -20,7 +20,7 @@
         <v-btn class="ma-2" color="gray darken-2" dark to="/post">
           <v-icon dark left>mdi-arrow-left</v-icon>Back
         </v-btn>
-        <v-btn rounded color="primary" dark @click="Post">Đăng</v-btn>
+        <v-btn rounded color="primary" dark @click="doPost">Đăng</v-btn>
       </div>
     </v-col>
   </div>
@@ -47,7 +47,6 @@ export default {
   computed: {
     ...mapState("user", {
       userInfo: "info",
-      userIsLoading: "isLoading"
     }),
     ...mapState("post",{
       toPosts: "posts",
@@ -57,21 +56,23 @@ export default {
     ...mapActions({
         doPost: 'post/ToPost',
       }),
-    Post() {
+    doPost() {
       this.ErrorPost = this.content ? "" : "hãy nhập nội dung bài viết";
       this.ErrorImg = this.img ? "" : "hãy nhập đường dẫn ảnh";
       if (this.ErrorPost || this.ErrorImg) return;
 
-      var params = {
+      var data = {
+        user_id: this.userInfo._id,
         username: this.userInfo.name,
         email: this.userInfo.email,
         content: this.content,
         img: this.img
       };
       axios
-        .post("/api/post/create", params)
+        .post("/api/post/create", data)
         .then(res => {
-          this.doPost(params)
+          alert("đăng bài thành công");
+          this.$router.push('/post')
         })
         .catch(err => {
           cosole.log(err);
@@ -84,13 +85,5 @@ export default {
       this.img = newImg;
     }
   },
-  watch: {
-      toPosts (newValue, oldValue) {
-        if (newValue._id) {
-          alert("đăng bài thành công");
-          this.$router.push('/post')
-        }
-      }
-    },
 };
 </script>
