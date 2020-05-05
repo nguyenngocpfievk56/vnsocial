@@ -2,9 +2,8 @@
   <div>
     <!--<v-btn color="primary" to="/auth/login" class="abc">Login</v-btn>-->
     <v-btn color="primary" @click="goTo('auth/login')">Login</v-btn>
-    <v-btn color="primary" @click="doLogout">Logout</v-btn>
     <h1>Welcome to VNsocial:  {{ userInfo.name }}</h1>
-    <v-btn color="primary" @click="goTo('post')">Trang danh sách bài post</v-btn>
+    <v-btn color="primary" @click="doLogout">Logout</v-btn>
   </div>
 </template>
 

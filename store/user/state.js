@@ -2,7 +2,7 @@
 // State chỉ được thay đổi giá bằng Mutation
 
 export default () => ({
-	info: {},
+	info: { },
   isLoading: false,
   message: ''
 });
