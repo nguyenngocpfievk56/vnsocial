@@ -75,6 +75,10 @@ export default {
   watch: {
     userInfo(newValue, oldValue) {
       if (newValue._id) {
+        this.$cookies.set("uid", newValue._id, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30
+        });
         this.$router.push('/')
       }
     }

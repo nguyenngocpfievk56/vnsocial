@@ -43,7 +43,8 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    "@nuxtjs/vuetify"
+    "@nuxtjs/vuetify",
+    "cookie-universal-nuxt",
   ],
   /*
   ** vuetify module configuration

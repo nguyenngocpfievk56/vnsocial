@@ -5,29 +5,17 @@ var express = require('express');
 var router = express.Router();
 const Qa = require('../models/qa');
 
-router.get('/post', function (req, res) {
-    var content = "Bài viết này hay quá!";
-    var user_id = "5e8743294f59fd36ba191184";
-    var rating_point = 0;
+router.post('/create', function (req, res) {
+    var content = req.body.content;
+    var user_id = req.body.user_id;
 
-    Qa.findOne({ content, user_id, rating_point, deleted_at: null}, function (err) {
-        if (err) {
-        res.json({ message: 'Có lỗi' });
-        return;
-        } else {
-        var newQa = new Qa();
-        newQa.content = content;
-        newQa.user_id = user_id;
-        newQa.rating_point = rating_point;
-        newQa.save(function(err) {
-            if(err){
-                res.json({ message: 'Có lỗi' });
-                return;
-            }
-            res.json({ Qa: newQa});
-        });
-        }
-    });
+    var qa = new Qa();
+    qa.content = content;
+    qa.user = user_id;
+    qa.save((err) => {
+        if (err) throw err;
+        res.json({ data: qa });
+    })
 });
 
 router.get('/update', function (req, res) {
@@ -52,13 +40,14 @@ router.get('/resign', function (req, res) {
     });
 });
 
-router.get('/getAll', function (req, res) {
-    Qa.find(function (err, response) {
+router.get('/get-all', function (req, res) {
+    Qa.find({}, function (err, qas) {
       if (err) {
         res.send("Có lỗi");
       }
-      res.json({ response })
-    });
+      res.json({ data: qas })
+    })
+    .populate('user');
 });
   
 module.exports = router;

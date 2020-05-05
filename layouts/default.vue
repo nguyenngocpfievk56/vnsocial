@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapActions } from 'vuex';
 
   export default {
     name: "DefaultLayout",
@@ -47,6 +47,14 @@
         userInfo: 'info',
         userIsLoading: 'isLoading'
       })
+    },
+    methods: {
+      ...mapActions({
+        getUserInfo: 'user/getUserInfo'
+      }),
+    },
+    mounted() {
+      this.getUserInfo({ id: this.$cookies.get("uid") });
     },
   }
 </script>

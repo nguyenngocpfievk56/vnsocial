@@ -3,9 +3,9 @@
     <!--<v-btn color="primary" to="/auth/login" class="abc">Login</v-btn>-->
     <v-btn color="primary" @click="goTo('auth/login')">Login</v-btn>
 
-    <v-btn color="primary" @click="doLogout">Logout</v-btn>
     <h1>Welcome to VNsocial:  {{ userInfo.name }}</h1>
-    <v-btn color="primary" @click="goTo('post')">Trang danh sách bài post</v-btn>
+    <v-btn color="primary" @click="logout">Logout</v-btn>
+    <nuxt-link to="/qa/create">Dan toi trang QA create</nuxt-link>
   </div>
 </template>
 
@@ -26,10 +26,14 @@
     },
     methods: {
       ...mapActions({
-        doLogout: 'user/logout'
+        doLogout: 'user/logout',
       }),
       goTo (url) {
         this.$router.push({ path: url });
+      },
+      logout () {
+        this.doLogout();
+        this.$cookies.remove('uid');
       }
     },
     beforeMount(){
