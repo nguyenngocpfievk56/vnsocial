@@ -17,15 +17,14 @@ const logout = (context, params) => {
 	context.commit('CLEAR_USER')
 }
 
-const getUserInfo = (context) => {
-	// axios
-	// 	.get('/api/auth/user-info')
-	// 	.then((res) => {
-	// 		context.commit('SET_USER', { user: res.data.user });
-	// 	})
-	// 	.catch((err) => {
-	// 		console.log(err);
-	// 	});
+const getUserInfo = (context, params) => {
+	axios.post('/api/user/info', params)
+		.then((res) => {
+			context.commit('SET_USER', { user: res.data.user })
+		})
+		.catch((err) => {
+			console.log(err)
+		})
 };
 
 export default {
