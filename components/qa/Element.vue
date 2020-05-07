@@ -1,52 +1,53 @@
 <template>
-  <v-col md="4">
-    <v-card
-      class="mx-auto"
-      color="#26c6da"
-      dark
-      max-width="400"
-    >
-      <v-card-title>
-        <v-icon
-          large
-          left
-        >
-          mdi-twitter
-        </v-icon>
-        <span class="title font-weight-light">Twitter</span>
-      </v-card-title>
+  <v-card
+    max-width="344"
+    class="mx-auto"
+    @click="handleClick(qa)"
+  >
+    <v-list-item>
+      <v-list-item-avatar>
+        <v-img
+          :src="qa.user.img"
+        ></v-img>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">{{ qa.user.name }}</v-list-item-title>
+        <v-list-item-subtitle>{{ qa.created_at }}</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
 
-      <v-card-text class="headline font-weight-bold">
-        {{ qa.content }}
-      </v-card-text>
+    <v-img
+      v-if="qa.img"
+      :src="qa.img"
+      height="194"
+    ></v-img>
 
-      <v-card-actions>
-        <v-list-item class="grow">
-          <v-list-item-avatar color="grey darken-3">
-            <v-img
-              class="elevation-6"
-              :src="qa.user.img"
-            ></v-img>
-          </v-list-item-avatar>
+    <v-card-text>
+      {{ qa.content }}
+    </v-card-text>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ qa.user.name }}</v-list-item-title>
-          </v-list-item-content>
-
-          <v-row
-            align="center"
-            justify="end"
-          >
-            <v-icon class="mr-1">mdi-heart</v-icon>
-            <span class="subheading mr-2">256</span>
-            <span class="mr-1">·</span>
-            <v-icon class="mr-1">mdi-share-variant</v-icon>
-            <span class="subheading">45</span>
-          </v-row>
-        </v-list-item>
-      </v-card-actions>
-    </v-card>
-  </v-col>
+    <v-card-actions>
+      <v-btn
+        text
+        color="deep-purple accent-4"
+      >
+        Read
+      </v-btn>
+      <v-btn
+        text
+        color="deep-purple accent-4"
+      >
+        Bookmark
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-share-variant</v-icon>
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -56,7 +57,8 @@
       qa: {
         type: Object,
         default: {}
-      }
+      },
+      handleClick: Function,
     }
   }
 </script>

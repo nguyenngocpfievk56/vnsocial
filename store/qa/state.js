@@ -3,4 +3,6 @@
 
 export default () => ({
 	qas: [],
+	currentQa: {},
+	showDialog: false
 });
