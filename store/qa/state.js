@@ -2,5 +2,7 @@
 // State chỉ được thay đổi giá bằng Mutation
 
 export default () => ({
-  posts: [],
+	qas: [],
+	currentQa: {},
+	showDialog: false
 });

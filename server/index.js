@@ -23,6 +23,8 @@ async function start () {
   app.use('/api/auth', require('./routes/auth'));
   app.use('/api/qa', require('./routes/qa'));
   app.use('/api/post', require('./routes/post'));
+  app.use('/api/shop', require('./routes/shop'));
+  app.use('/api/user', require('./routes/user'));
   app.use('/api/upload', require('./routes/upload'));
 
   await nuxt.ready()

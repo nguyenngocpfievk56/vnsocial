@@ -3,27 +3,24 @@
     <v-col md="8" offset-md="2">
       <div>
         <v-avatar class="mb-5">
-          <img
-            src="https://specials-images.forbesimg.com/imageserve/1183266467/960x0.jpg?"
-            alt="Hùng Chu"
-          />
+          <img src="https://specials-images.forbesimg.com/imageserve/1183266467/960x0.jpg?" />
         </v-avatar>
-        <b>Hùng Chu</b>
+        <b>{{userInfo.name}}</b>
       </div>
-      <TextArea :label="'Nhập nội dung bài viết'" :error="ErrorPost" :doUpdate="updateContent"/>
+      <TextArea :label="'Nhập nội dung bài viết'" :error="ErrorPost" :doUpdate="updateContent" />
 
-        <!-- <v-file-input 
+      <!-- <v-file-input 
           class="ma-auto"
           style="width: 200px"
           label="Thêm ảnh"
           filled prepend-icon="mdi-camera"
-          ></v-file-input> -->
+      ></v-file-input>-->
       <TextField :label="'nhập đường dẫn ảnh'" :error="ErrorImg" :doUpdate="updateImg" />
       <div class="text-center">
         <v-btn class="ma-2" color="gray darken-2" dark to="/post">
           <v-icon dark left>mdi-arrow-left</v-icon>Back
         </v-btn>
-        <v-btn rounded color="primary" dark @click="Post">Đăng</v-btn>
+        <v-btn rounded color="primary" dark @click="doPost">Đăng</v-btn>
       </div>
     </v-col>
   </div>
@@ -31,7 +28,8 @@
 <script>
 import TextArea from "~/components/common/form/TextArea";
 import TextField from "~/components/common/form/TextField";
-import axios from 'axios';
+import axios from "axios";
+import { mapState, mapActions } from 'vuex';
 export default {
   name: "CreatePost",
   data() {
@@ -42,46 +40,50 @@ export default {
       ErrorImg: ""
     };
   },
-  components:{
+  components: {
     TextArea,
     TextField
+  },
+  computed: {
+    ...mapState("user", {
+      userInfo: "info",
+    }),
+    ...mapState("post",{
+      toPosts: "posts",
+    })
   },
   methods: {
     ...mapActions({
         doPost: 'post/ToPost',
       }),
-    Post() {
-      this.ErrorPost = this.content ? '' : "hãy nhập nội dung bài viết";
-      this.ErrorImg = this.img ? '' : "hãy nhập đường dẫn ảnh";
-      if(this.ErrorPost || this.ErrorImg) return;
+    doPost() {
+      this.ErrorPost = this.content ? "" : "hãy nhập nội dung bài viết";
+      this.ErrorImg = this.img ? "" : "hãy nhập đường dẫn ảnh";
+      if (this.ErrorPost || this.ErrorImg) return;
 
-
-      var params = {
+      var data = {
+        user_id: this.userInfo._id,
+        username: this.userInfo.name,
+        email: this.userInfo.email,
         content: this.content,
         img: this.img
-      }
-      axios.post('/api/post/create', params)
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        cosole.log(err)
-      })
-    },
-    updateContent(newContent){
-      this.content= newContent;
-    },
-    updateImg(newImg){
-      this.img= newImg;
-    }
-  },
-  watch: {
-      toPosts (newValue, oldValue) {
-        if (newValue._id) {
+      };
+      axios
+        .post("/api/post/create", data)
+        .then(res => {
           alert("đăng bài thành công");
           this.$router.push('/post')
-        }
-      }
+        })
+        .catch(err => {
+          cosole.log(err);
+        });
     },
+    updateContent(newContent) {
+      this.content = newContent;
+    },
+    updateImg(newImg) {
+      this.img = newImg;
+    }
+  },
 };
 </script>

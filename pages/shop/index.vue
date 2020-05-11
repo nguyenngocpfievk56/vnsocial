@@ -75,6 +75,8 @@
   
 
 <script>
+import { mapActions, mapState } from "vuex";
+import { axios } from "axios";
 export default {
   data(){
     return{
@@ -146,7 +148,20 @@ export default {
 
       ]
     }
+  },
+  computed: {
+    ...mapState("shop", {
+      Shops: "shops",
+    }),
+    ...mapState("user", {
+      userInfo: "info",
+    })
+  },
+  methods:{
+    goTo(url){
+        this.$router.push({path: url})
+    }
+  },
 
-  }
 }
 </script>

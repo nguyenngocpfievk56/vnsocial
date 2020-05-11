@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-const ToPost = (context, params) => {
-    axios.post('/api/post/create', params)
+const getPosts = (context) => {
+    axios.get('/api/post/find')
     .then((res) => {
-        context.commit('SET_POSTS', { post: res.data.post })
+        context.commit("SET_POSTS", { posts: res.data.data })
     })
-    .catch((err) => {
-        console.log(err)
-    })
+    .catch()
 }
 export default {
-	ToPost
+	getPosts
 };

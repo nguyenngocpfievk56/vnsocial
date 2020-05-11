@@ -5,14 +5,18 @@ var qaSchema = mongoose.Schema({
     type: String,
     require: true
   },
-  rating_point: {
-    type: Number,
-    require: true
-  },
-  user_id: {
+  description: {
     type: String,
-    require: true
+    require: false
   },
+  img: {
+    type: String,
+    require: false
+  },
+  user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	},
   created_at: {
     type: Date,
     default: Date.now
@@ -25,10 +29,6 @@ var qaSchema = mongoose.Schema({
     type: Date,
     require: false
   },
-  is_deleted: {
-    type: Number,
-    require: 1
-  }
 });
 
 module.exports = mongoose.model('qa', qaSchema);

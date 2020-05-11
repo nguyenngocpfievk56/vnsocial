@@ -1,31 +1,58 @@
-// Minh:
-// find, udpate, delete, create cho QA
-
 var express = require('express');
 var router = express.Router();
+var multer = require("multer");
 const Qa = require('../models/qa');
 
-router.get('/post', function (req, res) {
-    var content = "Bài viết này hay quá!";
-    var user_id = "5e8743294f59fd36ba191184";
-    var rating_point = 0;
+var storage = multer.diskStorage({
+    destination(req, file, cb) {
+        let path = `static/uploads`;
+        cb(null, path);
+    },
+    filename: function(req, file, cb) {
+        var name = Date.now();
+        cb(null, name + ".png");
+    }
+});
 
-    Qa.findOne({ content, user_id, rating_point, deleted_at: null}, function (err) {
+var upload = multer({ storage: storage }).single("img");
+
+router.post('/create', function (req, res) {
+    upload(req, res, function(err) {
         if (err) {
-        res.json({ message: 'Có lỗi' });
-        return;
-        } else {
-        var newQa = new Qa();
-        newQa.content = content;
-        newQa.user_id = user_id;
-        newQa.rating_point = rating_point;
-        newQa.save(function(err) {
-            if(err){
-                res.json({ message: 'Có lỗi' });
-                return;
-            }
-            res.json({ Qa: newQa});
-        });
+            res.json({
+                error: true,
+                message: 'Đăng ảnh thất bại'
+            })
+        }
+        try {
+            var img = req.file.path.replace("static", "");
+
+            var data = JSON.parse(req.body.data);
+
+            var content = data.content;
+            var user_id = data.user_id;
+            var description = data.description;
+
+            var qa = new Qa();
+            qa.content = content;
+            qa.user = user_id;
+            qa.description = description;
+            qa.img = img;
+            qa.save((err) => {
+                if (err) {
+                    res.json({
+                        error: true,
+                        message: 'Có lỗi xảy ra, ko đăng được bài'
+                    })
+                    return false;
+                }
+                res.json({ error: false, data: qa });
+            })
+        } catch (err) {
+            res.json({
+                error: true,
+                message: 'Đăng ảnh thất bại'
+            })
         }
     });
 });
@@ -52,13 +79,14 @@ router.get('/resign', function (req, res) {
     });
 });
 
-router.get('/getAll', function (req, res) {
-    Qa.find(function (err, response) {
+router.get('/get-all', function (req, res) {
+    Qa.find({}, function (err, qas) {
       if (err) {
         res.send("Có lỗi");
       }
-      res.json({ response })
-    });
+      res.json({ data: qas })
+    })
+    .populate('user');
 });
   
 module.exports = router;
