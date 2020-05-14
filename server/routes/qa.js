@@ -69,7 +69,7 @@ router.get('/update', function (req, res) {
     });
 });
 
-router.get('/resign', function (req, res) {
+router.get('/remove', function (req, res) {
     var _id = "5e8f1a9101c6f13ee0124c04";
     Qa.deleteOne({ _id }, function (err, response) {
         if (err) {
