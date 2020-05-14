@@ -3,4 +3,6 @@
 
 export default () => ({
   posts: [],
+  currentPost: {},
+  showDialog: false,
 });

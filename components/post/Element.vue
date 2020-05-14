@@ -1,7 +1,7 @@
 <template>
   <v-col md="4">
-    <v-card class="mx-auto" max-width="380">
-      <v-img class="white--text align-end" height="200px" :src="post.img"></v-img>
+    <v-card class="mx-auto" max-width="380" @click="handleClick(post)">
+      <v-img class="white--text align-end"  height="200px" v-if="post.img" :src="post.img"></v-img>
 
       <v-card-subtitle class="pb-0">{{ post.created_at }}</v-card-subtitle>
 
@@ -27,7 +27,8 @@ export default {
     post: {
       type: Object,
       default: {}
-    }
+    },
+    handleClick: Function,
   }
 };
 </script>
