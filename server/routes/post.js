@@ -1,22 +1,61 @@
 var express = require('express');
 var router = express.Router();
+var multer = require("multer");
 const Post = require('../models/post');
 
+var storage = multer.diskStorage({
+    destination(req, file, cb) {
+      let path = `static/uploads`;
+      cb(null, path);
+    },
+    filename: function(req, file, cb) {
+      var name = Date.now();
+      cb(null, name + ".png");
+    }
+});
+
+var upload = multer({ storage: storage }).single("img");
+
 router.post('/create', function (req, res){
-    console.log(req.body);
-    var user_id = req.body.user_id;
-    var username = req.body.username;
-    var content = req.body.content;
-    var img = req.body.img;
-    var createPost = new Post();    
-    createPost.user = user_id;
-    createPost.username = username;
-    createPost.content = content;
-    createPost.img = img;
-    createPost.save((err) => {
-        if (err) throw err;
-        res.json({ data: createPost });
-    })
+    upload(req, res, function(err) {
+        if (err) {
+          res.json({
+            error: true,
+            message: 'Đăng ảnh thất bại'
+          })
+        }
+        try {
+          var img = req.file.path.replace("static", "");
+
+          var data = JSON.parse(req.body.data)
+
+          var user_id = data.user_id;
+          var username = data.username;
+          var content = data.content;
+          var createPost = new Post();    
+          createPost.user = user_id;
+          createPost.username = username;
+          createPost.content = content;
+          createPost.img = img;
+          createPost.save((err) => {
+              if (err) {
+                res.json({
+                    error: true,
+                    message: 'Đăng thất bại'
+                  })
+                  return false;
+              };
+              res.json({ errow: false, data: createPost });
+          })
+        } catch (err) {
+          res.json({
+            error: true,
+            message: 'Đăng ảnh thất bại'
+          })
+        }
+      });
+    // console.log(req.body);
+   
 });
 router.get('/update', function (req,res){
     var username = " Ngô Văn Hùng";
