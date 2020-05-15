@@ -8,7 +8,15 @@ const SET_POSTS = (state, payload) => {
 const CLEAR_POSTS = (state) => {
     state.posts = [];
 };
+const SET_CURRENT_POST = (state, payload) => {
+    state.currentPost = payload.currentPost;
+}
+const SET_SHOW_DIALOG = (state, payload) => {
+    state.showDialog = payload.showDialog;
+}
 export default {
     SET_POSTS,
     CLEAR_POSTS,
+    SET_CURRENT_POST,
+    SET_SHOW_DIALOG
 }
