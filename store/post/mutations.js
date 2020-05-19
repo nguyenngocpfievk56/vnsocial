@@ -10,6 +10,7 @@ const CLEAR_POSTS = (state) => {
 };
 const SET_CURRENT_POST = (state, payload) => {
     state.currentPost = payload.currentPost;
+    state.showDialog = true;
 }
 const SET_SHOW_DIALOG = (state, payload) => {
     state.showDialog = payload.showDialog;

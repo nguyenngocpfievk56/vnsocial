@@ -44,10 +44,5 @@ export default {
   mounted() {
     this.getPosts();
   },
-  watch:{
-    currentPost(newValue, oldValue){
-      this.setShowDialog({ showDialog: true })
-    }
-  }
 };
 </script>
