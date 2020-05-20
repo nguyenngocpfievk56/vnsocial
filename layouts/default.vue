@@ -118,6 +118,11 @@
             title: "Bài viết",
             to: "/post",
           },
+          {
+            icon: "mdi-domain",
+            title: "Sản phẩm",
+            to: "/shop",
+          },
         ]
       }
     },

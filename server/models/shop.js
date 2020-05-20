@@ -9,14 +9,26 @@ var shopSchema = mongoose.Schema({
     type: String,
     require: true
   },
-  price: {
-    type: Number,
+  country: {
+    type: String,
     require: true
   },
-  country: {
+  description:{
+      type:String,
+      require:false
+  },
+  price: {
+    type: Number,
+    require: false
+  },
+  content: {
     type: String,
     require: false
   },
+  user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	},
   created_at: {
 		type: Date,
 		default: Date.now

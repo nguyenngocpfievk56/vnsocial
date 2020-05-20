@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-const ToShops = (context, params) => {
-    axios.get('/api/shop/create', params)
+const getShops = (context) => {
+  axios.get('/api/shop/find')
     .then((res) => {
-        context.commit('SET_SHOPS', { shops: res.data.shop })
+      context.commit("SET_SHOPS", { shops: res.data.data })
     })
-    .catch((err) => {
-        console.log(err)
-    })
+    .catch()
 }
+
 export default {
-    ToShops
+  getShops
 };

@@ -1,3 +1,5 @@
 export default () => ({
-    Shop: [],
+    shops: [],
+    currentShop: {},
+	showDialog: false
 });
