@@ -7,7 +7,7 @@
             <v-avatar class="mr-1">
               <img src="https://specials-images.forbesimg.com/imageserve/1183266467/960x0.jpg?" />
             </v-avatar>
-             hungchu2
+            {{ currentPost.user && currentPost.user.name }}
           </v-card-actions>
         </v-card-title>
 
@@ -56,6 +56,7 @@ export default {
   },
   watch: {
     showDialog(newValue, oldValue) {
+      console.log("thay doi")
       this.dialog = newValue;
     }
   }

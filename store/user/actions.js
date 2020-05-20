@@ -27,8 +27,22 @@ const getUserInfo = (context, params) => {
 		})
 };
 
+const updateInfo = (context, params) => {
+	context.commit('SET_IS_LOADING', { isLoading: true })
+	axios.post('/api/user/update', params)
+		.then((res) => {
+			context.commit('SET_USER', { user: res.data })
+			context.commit('SET_IS_LOADING', { isLoading: false })
+		})
+		.catch((err) => {
+			console.log(err)
+			context.commit('SET_IS_LOADING', { isLoading: false })
+		})
+};
+
 export default {
 	getUserInfo,
 	login,
 	logout,
+	updateInfo
 };
