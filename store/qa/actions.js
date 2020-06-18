@@ -3,10 +3,11 @@
 
 import axios from 'axios';
 
-const getQas = (context) => {
-  axios.get('/api/qa/get-all')
+const getQas = (context, params) => {
+  axios.get(`/api/qa/get-all`, { params })
     .then((res) => {
-      context.commit("SET_QAS", { qas: res.data.data })
+      console.log(res);
+      context.commit("SET_QAS", { data: res.data })
     })
     .catch()
 }

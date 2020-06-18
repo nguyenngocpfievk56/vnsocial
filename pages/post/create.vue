@@ -42,6 +42,7 @@ import axios from "axios";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "CreatePost",
+  middleware: "unAuthenticated",
   data() {
     return {
       content: "",
@@ -71,17 +72,18 @@ export default {
     },
     doPost() {
       if (this.content) {
-        this.myCroppa.generateBlob((blob, err) => {
-          if (blob) {
+        // this.myCroppa.generateBlob((blob, err) => {
+        //   if (blob) {
             const formData = new FormData();
-            formData.append("img", blob);
+            // formData.append("img", blob);
             var data = {
                 content: this.content,
                 user_id: this.userInfo._id,
               }
-            formData.append('data', JSON.stringify(data))
+            console.log(data);
+            // formData.append('data', JSON.stringify(data))
             axios
-              .post("/api/post/create", formData)
+              .post("/api/post/create", data)
               .then(res => {
                 alert("đăng bài thành công");
                 this.$router.push("/post");
@@ -89,8 +91,8 @@ export default {
               .catch(err => {
                 console.log(err);
               });
-          }
-        });
+          // }
+        // });
       } else {
         this.ErrorPost = "Hãy nhập nội dung bài post";
       }

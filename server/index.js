@@ -2,12 +2,15 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
+// const csrf = require('csurf');
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/vnsocial', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(require('body-parser').json());
 app.use(require('cookie-parser')());
+
+// app.use(csrf({ cookie: true }));
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')

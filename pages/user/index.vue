@@ -33,6 +33,7 @@
 
   export default {
     name: "UserIndexPage",
+    middleware: "unAuthenticated",
     data() {
       return {
         isShowing: true,

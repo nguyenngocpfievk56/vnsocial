@@ -1,6 +1,7 @@
 <template>
   <div class="text-center">
     <croppa v-model="myCroppa"
+        v-if="initImg"
         :width="cWidth"
         :height="cHeight"
         :initial-image="initImg"

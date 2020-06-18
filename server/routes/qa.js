@@ -80,13 +80,32 @@ router.get('/resign', function (req, res) {
 });
 
 router.get('/get-all', function (req, res) {
-    Qa.find({}, function (err, qas) {
+    var limit = 5;
+    var maxId = req.query.maxId;
+    var minId = req.query.minId;
+    var query = {};
+    if (maxId && minId) query = { "$or": [ { _id: { "$gt": maxId } }, { _id: { "$lt": minId }} ] };
+    Qa.find(query, function (err, qas) {
       if (err) {
         res.send("Có lỗi");
       }
-      res.json({ data: qas })
+      if (!maxId) {
+        maxId = qas[0]._id;
+      } else {
+        maxId = (maxId > qas[0]._id) ? maxId : qas[0]._id;
+      }
+
+      if (!minId) {
+        minId = qas[qas.length - 1]._id;
+      } else {
+        minId = (minId < qas[qas.length - 1]._id) ? minId : qas[qas.length - 1]._id;
+      }
+
+      res.json({ data: qas, minId, maxId })
     })
-    .populate('user');
+    .populate('user')
+    .sort({ '_id': -1 })
+    .limit(limit);
 });
-  
+
 module.exports = router;

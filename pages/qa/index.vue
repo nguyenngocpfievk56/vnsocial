@@ -4,6 +4,7 @@
     <v-row>
       <QaElement v-for="(qa, index) in qas" :key="index" :qa="qa" :handleClick="handleClick"/>
     </v-row>
+    <v-btn @click="loadMore">Xem thêm</v-btn>
     <QaDialog/>
   </div>
 </template>
@@ -15,6 +16,11 @@
   
   export default {
     name: "QaIndexPage",
+    data() {
+      return {
+        page: 1
+      }
+    },
     methods: {
       ...mapActions({
         getQas: 'qa/getQas'
@@ -27,11 +33,16 @@
         this.setCurrentQa({
           currentQa: qa
         })
+      },
+      loadMore() {
+        this.getQas({ minId: this.minId, maxId: this.maxId});
       }
     },
     computed: {
       ...mapState('qa', {
         qas: 'qas',
+        minId: 'minId',
+        maxId: 'maxId',
         currentQa: 'currentQa'
       })
     },
@@ -40,7 +51,7 @@
       QaDialog
     },
     mounted() {
-      this.getQas();
+      this.getQas({ minId: this.minId, maxId: this.maxId});
     },
     watch: {
       currentQa (newValue, oldValue) {

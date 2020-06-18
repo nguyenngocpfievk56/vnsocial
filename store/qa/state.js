@@ -3,6 +3,8 @@
 
 export default () => ({
 	qas: [],
+	minId: null,
+	maxId: null,
 	currentQa: {},
 	showDialog: false
 });
