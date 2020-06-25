@@ -3,7 +3,7 @@
     <v-col md="8" offset-md="2">
       <div>
         <v-avatar class="mb-5">
-          <img src="https://specials-images.forbesimg.com/imageserve/1183266467/960x0.jpg?" />
+          <img :src="userInfo.img" />
         </v-avatar>
         <b>{{userInfo.name}}</b>
       </div>
@@ -72,27 +72,26 @@ export default {
     },
     doPost() {
       if (this.content) {
-        // this.myCroppa.generateBlob((blob, err) => {
-        //   if (blob) {
+        this.myCroppa.generateBlob((blob, err) => {
+          if (blob) {
             const formData = new FormData();
-            // formData.append("img", blob);
+            formData.append("img", blob);
             var data = {
                 content: this.content,
                 user_id: this.userInfo._id,
               }
-            console.log(data);
-            // formData.append('data', JSON.stringify(data))
+            formData.append('data', JSON.stringify(data))
             axios
-              .post("/api/post/create", data)
+              .post("/api/post/create", formData)
               .then(res => {
-                alert("đăng bài thành công");
-                this.$router.push("/post");
+                alert("đăng bài thành công"); 
+                this.$router.back();
               })
               .catch(err => {
                 console.log(err);
               });
-          // }
-        // });
+          }
+        });
       } else {
         this.ErrorPost = "Hãy nhập nội dung bài post";
       }

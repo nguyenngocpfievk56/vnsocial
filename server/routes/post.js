@@ -17,58 +17,44 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single("img");
 
 router.post('/create', function (req, res){
-  var createPost = new Post();    
-  createPost.user = req.body.user_id;
-  createPost.content = req.body.content;
-  createPost.save((err) => {
-      if (err) {
-        res.json({
+    upload(req, res, function(err) {
+        if (err) {
+          res.json({
             error: true,
-            message: 'Đăng thất bại'
+            message: 'Đăng ảnh thất bại'
           })
-          return false;
-      };
-      res.json({ errow: false, data: createPost });
-  })
-    // upload(req, res, function(err) {
-    //     if (err) {
-    //       res.json({
-    //         error: true,
-    //         message: 'Đăng ảnh thất bại'
-    //       })
-    //     }
-    //     try {
-    //       var img = req.file.path.replace("static", "");
+        }
+        try {
+          var img = req.file.path.replace("static", "");
 
-    //       var data = JSON.parse(req.body.data)
+          var data = JSON.parse(req.body.data)
 
-    //       var user_id = data.user_id;
-    //       var username = data.username;
-    //       var content = data.content;
-    //       var createPost = new Post();    
-    //       createPost.user = user_id;
-    //       createPost.username = username;
-    //       createPost.content = content;
-    //       createPost.img = img;
-    //       createPost.save((err) => {
-    //           if (err) {
-    //             res.json({
-    //                 error: true,
-    //                 message: 'Đăng thất bại'
-    //               })
-    //               return false;
-    //           };
-    //           res.json({ errow: false, data: createPost });
-    //       })
-    //     } catch (err) {
-    //       res.json({
-    //         error: true,
-    //         message: 'Đăng ảnh thất bại'
-    //       })
-    //     }
-    //   });
-    // console.log(req.body);
-   
+          var user_id = data.user_id;
+          var username = data.username;
+          var content = data.content;
+          var createPost = new Post();    
+          createPost.user = user_id;
+          createPost.username = username;
+          createPost.content = content;
+          createPost.img = img;
+          createPost.save((err) => {
+              if (err) {
+                res.json({
+                    error: true,
+                    message: 'Đăng thất bại'
+                  })
+                  return false;
+              };
+              res.json({ errow: false, data: createPost });
+          })
+        } catch (err) {
+          res.json({
+            error: true,
+            message: 'Đăng ảnh thất bại'
+          })
+        }
+      });
+    console.log(req.body);
 });
 router.get('/update', function (req,res){
     var username = " Ngô Văn Hùng";
@@ -93,7 +79,10 @@ router.get('/delete', function(req,res){
     res.json({ response })
     })
 })
-router.get('/find', function(req,res){ 
+router.get('/find', function(req,res){
+  var limit = 5;
+  var page = req.query.page;
+  var offset = (page - 1) * limit;
     Post.find(function(err, posts){
         if(err){
             res.json({error: "Có lỗi"});
@@ -102,6 +91,9 @@ router.get('/find', function(req,res){
         res.json({ data: posts})
     })
     .populate('user')
+    .sort({ '_id': -1})
+    .skip(offset)
+    .limit(limit)
 })
 
 module.exports = router;

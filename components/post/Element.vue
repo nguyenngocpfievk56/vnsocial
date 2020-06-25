@@ -11,7 +11,7 @@
 
       <v-card-actions>
         <v-avatar class="mr-2">
-          <img src="https://specials-images.forbesimg.com/imageserve/1183266467/960x0.jpg?" />
+          <img :src="post.user.img" />
         </v-avatar>
         {{ post.user.name }}
       </v-card-actions>
