@@ -28,13 +28,14 @@ async function start () {
   app.use('/api/post', require('./routes/post'));
   app.use('/api/user', require('./routes/user'));
   app.use('/api/upload', require('./routes/upload'));
+  app.use('/crawl', require('./routes/crawl'));
 
-  await nuxt.ready()
-  // Build only in dev mode
-  if (config.dev) {
-    const builder = new Builder(nuxt)
-    await builder.build()
-  }
+  // await nuxt.ready()
+  // // Build only in dev mode
+  // if (config.dev) {
+  //   const builder = new Builder(nuxt)
+  //   await builder.build()
+  // }
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
